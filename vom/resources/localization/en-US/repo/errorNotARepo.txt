@@ -1,0 +1,1 @@
+{file.getFileName()} is not a vom repository. use 'vom init' first.

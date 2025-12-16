@@ -1,0 +1,1 @@
+'{command}'.\n[vom] available commands: {'|'.join([file.getFileName().removesuffix(file.getFileExtension()) for file in commands if file.getFileName()[0].isalnum()])}.

@@ -1,0 +1,1 @@
+f"""[vom] {' '*(4-len(category))}{category}: {string}"""
