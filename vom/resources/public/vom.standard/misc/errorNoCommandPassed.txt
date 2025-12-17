@@ -1,1 +1,1 @@
-vom <command> [args]
+usage: vom <command> [args]

@@ -1,1 +1,1 @@
-implementations/{implementation}/info/rules.json
+implementations/{implementation}/info/rules.ejson

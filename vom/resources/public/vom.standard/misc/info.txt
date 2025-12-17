@@ -1,0 +1,1 @@
+vom ({vom.read()['release']}) {vom.read()['version']} by {vom.read()['author']['name']} ({vom.read()['author']['links']['email']}). source code at {vom.read()['github']}

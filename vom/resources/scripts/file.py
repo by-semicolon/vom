@@ -33,7 +33,7 @@ class File:
         return os.path.getmtime(self.path)
     def getParent(self) -> str:
         return File(os.path.dirname(self.path))
-    def getChildren(self) -> str:
+    def getChildren(self) -> "list[File]":
         return [(self / item) for item in os.listdir(self.getFullPath())]
     def __truediv__(self, other: "str | File") -> "File":
         if other == "..":
@@ -44,8 +44,11 @@ class File:
     def mkdir(self) -> None:
         os.makedirs(self.path, exist_ok=True)
         return self
-    def rmdir(self) -> None:
-        shutil.rmtree(self.path)
+    def delete(self) -> None:
+        if self.isDirectory():
+            shutil.rmtree(self.path)
+        elif self.isFile():
+            os.remove(self.path)
         return self
     def isDirectory(self) -> bool:
         return os.path.isdir(self.path)

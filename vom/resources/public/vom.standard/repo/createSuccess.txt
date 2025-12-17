@@ -1,1 +1,1 @@
-successfully created: {file.getFileName()} at '{file.getFullPath()}'
+created {file.getFileName()}

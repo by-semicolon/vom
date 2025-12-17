@@ -5,6 +5,7 @@ from copy import deepcopy
 from vom.resources.scripts.file import File
 from vom.resources.scripts.string import String
 from vom.resources.scripts.errors import UnknownCommandError, UsageError
+from vom.resources.scripts.json import JSONFile
 
 
 HERE: File = File(__file__)
@@ -14,6 +15,7 @@ def main() -> None:
     if "-v" in argv:
         argv.remove("-v")
     if len(argv) < 2:
+        print(String.misc.info(formatted=True, vom=JSONFile(HERE / ".." / "vom.json")))
         raise UsageError(String.misc.errorNoCommandPassed())
     command: str = argv[1]
     args: list[str] = argv[2:]
@@ -25,11 +27,6 @@ def main() -> None:
 try:
     main()
 except Exception as error:
-    new_name: str = ""
-    for char in error.__class__.__name__.removesuffix("Error"):
-        if char.isupper():
-            new_name += " "
-        new_name += char.lower()
-    print(String.misc.error(errorname=new_name.strip(), errormsg=str(error)))
+    print(String.misc.error(errorname=error.__class__.__name__, errormsg=str(error)))
     if "-v" in sys.argv:
         raise error

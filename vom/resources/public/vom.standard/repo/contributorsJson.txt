@@ -1,1 +1,1 @@
-info/contributors.json
+info/contributors.ejson

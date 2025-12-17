@@ -86,33 +86,36 @@ vom  impl  perm  add  <username>  <permission>  [implementation]  --------------
                                                                                  'vom notifications' command. only sends to the specified user(s)
                                                                                  (separated by commas) if anyare provided.
 commands for repository owners:
-vom perm  add  <username>  <permission>  --------------------------------------- add a permission to a certain user if you are an owner of the
+vom  perm  add  <username>  <permission>  -------------------------------------- add a permission to a certain user if you are an owner of the
                                                                                  repository.
-    perm  remove  <username>  [--all]  <permission>  --------------------------- remove a permission from a certain user if you are an owner of
+     perm  remove  <username>  [--all]  <permission>  -------------------------- remove a permission from a certain user if you are an owner of
                                                                                  the repository.
-    perm  check  <username>  [permission]  ------------------------------------- check if a user has a certain permission or not, or do not pass
+     perm  check  <username>  [permission]  ------------------------------------ check if a user has a certain permission or not, or do not pass
                                                                                  a permission to get a list of their permissions.
-    perm  add-owner  <username>  ----------------------------------------------- make a user an owner of this repository if you are
+     perm  add-owner  <username>  ---------------------------------------------- make a user an owner of this repository if you are
                                                                                  also an owner. be careful with this as repository owners have
                                                                                  all permissions in all implementations, can add and remove
                                                                                  owners, give and remove permissions, delete or recreate your
                                                                                  repository, and manage all implementations. they cannot however
                                                                                  remove ownership from the person who added them.
-    perm  remove-owner  <username>  [implementation]  -------------------------- remove a user's ownership of the current repository if you
+     perm  remove-owner  <username>  [implementation]  ------------------------- remove a user's ownership of the current repository if you
                                                                                  are an owner. you cannot remove ownership from yourself or the
                                                                                  person who gave it to you for security reasons.
-    repo-delete  [--confirm value]  -------------------------------------------- delete the current repository if you have the DELETE_RECREATE
+     repo-delete  [--confirm value]  ------------------------------------------- delete the current repository if you have the DELETE_RECREATE
                                                                                  permission or are an owner of the repository. you will be
                                                                                  prompted to archive this repo instead and to enter the name of
                                                                                  the repository in the --confirm option.
-    repo-archive  -------------------------------------------------------------- non-destructive alternative to 'vom repo-delete' that prevents
+     repo-archive  ------------------------------------------------------------- non-destructive alternative to 'vom repo-delete' that prevents
                                                                                  additions to tracks, commits, pushes, creation of
                                                                                  implementations and managing implementations. the repository
                                                                                  directory will persist and all commands have a warning that
                                                                                  this repository is archived and no changes can be made.
                                                                                  unarchive any time with 'vom repo-unarchive'
-    repo-unarchive  ------------------------------------------------------------ revert all changes of 'vom repo-archive'
-    shout  <message>  [users]  ------------------------------------------------- send a message that will appear to all users the next time they
+     repo-unarchive  ----------------------------------------------------------- revert all changes of 'vom repo-archive'
+     shout  <message>  [users]  ------------------------------------------------ send a message that will appear to all users the next time they
                                                                                  use a command in the repo or use the 'vom notifications' command.
                                                                                  only sends to the specified user(s) (separated by commas) if any
                                                                                  are provided.
+utility commands:
+vom  --------------------------------------------------------------------------- view some basic information on vom.
+     util  --clear-keys  ------------------------------------------------------- clears cached vom keys on your system. can save a few kb of space.

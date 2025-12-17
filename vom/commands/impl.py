@@ -11,8 +11,7 @@ HERE: File = File(__file__)
 
 def impl(args: list[str]) -> None:
     repo: Repo = Repo(File(os.getcwd()))
-    command: str = args[0]
-    args.pop(0)
+    command: str = args.pop(0)
     match command:
         case "create":
             if not file.

@@ -27,18 +27,18 @@ class Repo:
         self.contributors: ContributorsEJDS | None = None
     def fetchData(self) -> None:
         self.implementations = []
-        for name in (self.file / "implementations").getChildren():
+        for name in (self.file / String.repo.implementationsDir()).getChildren():
             self.implementations.append(Implementation(self.file / "implementations" / name))
         self.uuid = (self.file / String.repo.uuidFile()).read()
-        self.es = EncryptionService((KEYS_DIRECTORY / (self.uuid + ".vom")).read())
+        self.es = EncryptionService((KEYS_DIRECTORY / String.repo.vomKeyFileFormat(uuid=self.uuid)).read())
         self.contributors = ContributorsEJDS(self.es, (self.file / String.repo.contributorsJson()), JSONFile(self.file / String.repo.contributorsJson()).read())
     def setup(self) -> None:
         self.uuid = str(createUUID())
-        run(self.file, String.git.initCommand())
+        run(self.file, String.gitv.initCommand())
         print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.readMeFile()).write(String.repo.readMeContent())))
-        print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.uuidFile()).write(self.uuid)))
-        (KEYS_DIRECTORY / (self.uuid + ".vom")).writeBytes(EncryptionService.newKey())
         print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.infoDir()).mkdir()))
+        print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.uuidFile()).write(self.uuid)))
+        (KEYS_DIRECTORY / String.repo.vomKeyFileFormat(uuid=self.uuid)).writeBytes(EncryptionService.newKey())
         print(String.repo.createSuccess(formatted=True, file=JSONFile(self.file / String.repo.contributorsJson()).write([{
             "username": Git.getLocalUsername(),
             "email": Git.getLocalEmail(),

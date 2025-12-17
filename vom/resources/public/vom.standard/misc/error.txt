@@ -1,1 +1,1 @@
-\033[91m[vom] {errorname}: {errormsg}\033[0m
+\033[91m[vom] ftal: [err.{errorname}] {errormsg}\033[0m
