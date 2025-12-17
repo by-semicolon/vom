@@ -1,0 +1,1 @@
+the public gallery '{gallery}' doesn't include the '{category}.{key}' resource.

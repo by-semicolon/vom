@@ -1,0 +1,12 @@
+{
+    "release": "vom.standard",
+    "authors": {
+        "name": "semicolon studios",
+        "contact": {
+            "email": "pixilreal@gmail.com",
+            "github": "https://github.com/by-semicolon"
+        }
+    },
+    "github": "https://github.com/by-semicolon/vom",
+    "version": "0.4"
+}

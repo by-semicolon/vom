@@ -49,6 +49,8 @@ vom  init  [location]  [--force]  ----------------------------------------------
      notifications  ------------------------------------------------------------ view a log of messages with timestamps and updates made to
                                                                                  your user (e.g. shouts, permission updates, ownership changes,
                                                                                  contributions, implementations, etc.)
+     help  [--print]  ---------------------------------------------------------- open a window with instructions and commands. pass --print to
+                                                                                 print in terminal instead.
 commands for contributors:                    
 vom  add  <file>  -------------------------------------------------------------- add a file or directory to the current implementation's track
                                                                                  if you have the ADD_REMOVE permission.

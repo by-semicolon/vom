@@ -3,13 +3,20 @@ from datetime import datetime
 
 
 class File:
-    def __init__(self, path: str):
-        self.path: str = path
+    def __init__(self, path: "str | File") -> None:
+        self.path: str = path.path if isinstance(path, File) else path
     def read(self) -> str:
         with open(self.path) as file:
             return file.read()
-    def write(self, content: str) -> None:
+    def write(self, content: str) -> "File":
         with open(self.path, "w") as file:
+            file.write(content)
+        return self
+    def readBytes(self) -> bytes:
+        with open(self.path, "rb") as file:
+            return file.read()
+    def writeBytes(self, content: bytes) -> "File":
+        with open(self.path, "wb") as file:
             file.write(content)
         return self
     def getFullPath(self) -> str:
@@ -28,10 +35,10 @@ class File:
         return File(os.path.dirname(self.path))
     def getChildren(self) -> str:
         return [(self / item) for item in os.listdir(self.getFullPath())]
-    def __truediv__(self, other: str) -> "File":
+    def __truediv__(self, other: "str | File") -> "File":
         if other == "..":
             return self.getParent()
-        return File(os.path.join(self.path, other))
+        return File(os.path.join(self.path, other.path if isinstance(other, File) else other))
     def exists(self) -> bool:
         return os.path.exists(self.path)
     def mkdir(self) -> None:
