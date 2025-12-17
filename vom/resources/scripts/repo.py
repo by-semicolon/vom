@@ -34,7 +34,7 @@ class Repo:
         self.contributors = ContributorsEJDS(self.es, (self.file / String.repo.contributorsJson()), JSONFile(self.file / String.repo.contributorsJson()).read())
     def setup(self) -> None:
         self.uuid = str(createUUID())
-        run(self.file, ["git", "init"])
+        run(self.file, String.git.initCommand())
         print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.readMeFile()).write(String.repo.readMeContent())))
         print(String.repo.createSuccess(formatted=True, file=(self.file / String.repo.uuidFile()).write(self.uuid)))
         (KEYS_DIRECTORY / (self.uuid + ".vom")).writeBytes(EncryptionService.newKey())

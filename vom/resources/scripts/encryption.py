@@ -2,8 +2,6 @@ import sys
 import os
 
 from vom.resources.scripts.errors import CryptographyNotInstalledError
-from vom.resources.scripts.file import File
-from vom.resources.scripts.json import JSONFile
 
 
 try:

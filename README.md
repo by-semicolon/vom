@@ -8,3 +8,4 @@ with vom as of now.
 - 0.2 - 14.12.2025 - development begins
 - 0.3 - 16.12.2025 - git repo created
 - 0.4 - 17.12.2025 - encryption, json reading, base for implementation, users
+- 0.4.1 - 17.12.2025 - minor fixes to possible circular imports
