@@ -1,8 +1,8 @@
 from typing import Any
 import json
 
-from vom.resources.scripts.encryption import EncryptionService
-from vom.resources.scripts.file import File
+from .encryption import EncryptionService
+from .file import File
 
 
 class JSONFile(File):
@@ -25,5 +25,5 @@ class EncryptedJSONFile(File):
     def read(self) -> Any:
         return json.loads(self.es.decrypt(super().read()))
     def write(self, object: Any) -> "JSONFile":
-        super().write(self.es.encrypt(json.dumps(object)))
+        super().writeBytes(self.es.encrypt(json.dumps(object)))
         return self

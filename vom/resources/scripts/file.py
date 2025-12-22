@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class File:
-    def __init__(self, path: "str | File") -> None:
-        self.path: str = path.path if isinstance(path, File) else path
+    def __init__(self, path: "str | File | None" = None) -> None:
+        self.path: str = path.path if isinstance(path, File) else (path if isinstance(path, str) else os.getcwd())
     def read(self) -> str:
         with open(self.path) as file:
             return file.read()
@@ -35,14 +35,30 @@ class File:
         return File(os.path.dirname(self.path))
     def getChildren(self) -> "list[File]":
         return [(self / item) for item in os.listdir(self.getFullPath())]
-    def __truediv__(self, other: "str | File") -> "File":
+    def __truediv__(self, other: "str | int | File") -> "File":
         if other == "..":
             return self.getParent()
-        return File(os.path.join(self.path, other.path if isinstance(other, File) else other))
+        return File(os.path.join(self.path, str(other.path if isinstance(other, File) else other)))
+    def getTree(self, exclude: list[str], *, tree_location: str = "") -> "list[tuple[str, File]]":
+        files: list[tuple[File]] = []
+        for file in self.getChildren():
+            if file.getFileName() in exclude:
+                continue
+            elif file.isFile():
+                files.append((tree_location.strip("/"), file))
+            else:
+                files += file.getTree(tree_location=f"{tree_location}/{self.getFileName()}")
+        return files
     def exists(self) -> bool:
         return os.path.exists(self.path)
-    def mkdir(self) -> None:
+    def mkdir(self) -> "File":
         os.makedirs(self.path, exist_ok=True)
+        return self
+    def copy(self, destination: "File") -> "File":
+        if self.isDirectory():
+            shutil.copytree(self.path, destination.path)
+        elif self.isFile():
+            shutil.copy2(self.path, destination.path)
         return self
     def delete(self) -> None:
         if self.isDirectory():
@@ -62,3 +78,9 @@ class File:
         return os.path.isreadable(self.path)
     def isWritable(self) -> bool:
         return os.path.iswritable(self.path)
+    def __str__(self) -> str:
+        return str(self.path)
+    def __repr__(self) -> str:
+        return f"File('{self.path}')"
+    def __eq__(self, other: "File | str") -> bool:
+        return self.getFullPath() == (other.getFullPath() if isinstance(other, File) else other)

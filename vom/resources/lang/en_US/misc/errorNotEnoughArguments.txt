@@ -1,0 +1,1 @@
+not enough arguments passed. try 'vom help'

@@ -1,0 +1,6 @@
+source .venv/bin/activate
+python -m build vom
+pip install ./vom
+rm -rf ./vom/build
+rm -rf ./vom/dist
+rm -rf ./vom/vom_standard.egg-info

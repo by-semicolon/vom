@@ -1,22 +1,23 @@
-from vom.resources.scripts.file import File
-from vom.resources.scripts.errors import ResourceNotFoundError
+from .file import File
+from .errors import ResourceNotFoundError
 
 
 HERE: File = File(__file__)
-GALLERY: str = (HERE / ".." / ".." / ".." / "use.gallery").read()
-STRINGS_DIR: File = HERE / ".." / ".." / "public" / GALLERY
+LANG_OPTION: str = (HERE / ".." / ".." / ".." / "language.option").read()
+LANG_DIR: File = HERE / ".." / ".." / "lang" / LANG_OPTION
 
 @lambda _: _()
 class String:
     def __getattr__(self, category: str) -> str:
         class StringCategory:
             def __getattr__(self, key: str) -> str:
-                try:
-                    return lambda formatted=False, **kwargs: (eval((STRINGS_DIR / "misc" / "format.txt").read(), {
-                        "string": eval("f\"\"\"" + (STRINGS_DIR / category / (key + ".txt")).read() + "\"\"\"", kwargs),
-                        "category": category,
-                        "key": key
-                    }) if formatted else eval("f\"\"\"" + (STRINGS_DIR / category / (key + ".txt")).read() + "\"\"\"", kwargs))
-                except FileNotFoundError:
-                    raise ResourceNotFoundError(String.misc.errorResourceNotFound(gallery=GALLERY, category=category, key=key))
+                if not (LANG_DIR / category / (key + ".txt")).exists():
+                    if not (LANG_DIR / "misc" / "errorResourceNotFound.txt").exists():
+                        raise ResourceNotFoundError(f"{category}.{key}")
+                    raise ResourceNotFoundError(String.misc.errorResourceNotFound(stringoption=LANG_OPTION, category=category, key=key))
+                return lambda formatted=False, **kwargs: (eval((LANG_DIR / "misc" / "format.txt").read(), {
+                    "string": eval("f\"\"\"" + (LANG_DIR / category / (key + ".txt")).read() + "\"\"\"", kwargs),
+                    "category": category,
+                    "key": key
+                }) if formatted else eval("f\"\"\"" + (LANG_DIR / category / (key + ".txt")).read() + "\"\"\"", kwargs))
         return StringCategory()

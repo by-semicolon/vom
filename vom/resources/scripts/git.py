@@ -1,4 +1,5 @@
-from vom.resources.scripts.system import get
+from .system import get
+from uuid import getnode as getNode
 
 
 class Git:
@@ -8,3 +9,6 @@ class Git:
     @staticmethod
     def getLocalEmail() -> str:
         return get(".", ["git", "config", "user.email"]).stdout.strip()
+    @staticmethod
+    def getLocalID() -> str:
+        return str(getNode())

@@ -1,8 +1,8 @@
 from typing import Any
 
-from vom.resources.scripts.encryption import EncryptionService
-from vom.resources.scripts.json import JSONFile, EncryptedJSONFile
-from vom.resources.scripts.user import User
+from .encryption import EncryptionService
+from .json import JSONFile, EncryptedJSONFile
+from .user import User
 
 
 class JSONDataset:
@@ -15,9 +15,8 @@ class JSONDataset:
         self.data = self.file.read()
 
 class EncryptedJSONDataset(JSONDataset):
-    def __init__(self, es: EncryptionService, file: JSONFile, data: Any = None) -> None:
-        super().__init__(file, data)
-        self.es: EncryptionService = es
+    def __init__(self, file: JSONFile) -> None:
+        super().__init__(file, file.read())
         self.file: EncryptedJSONFile = file
 
 class ContributorsEJDS(EncryptedJSONDataset):

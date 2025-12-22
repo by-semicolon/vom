@@ -1,0 +1,1 @@
+'{command}'.\n[vom] hint: use 'vom help' to get a list of commands.

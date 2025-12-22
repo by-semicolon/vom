@@ -1,6 +1,6 @@
 from subprocess import run as spRun
 
-from vom.resources.scripts.file import File
+from .file import File
 
 
 def get(where: File | str, command: str) -> str:

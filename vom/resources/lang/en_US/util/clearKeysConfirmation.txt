@@ -1,0 +1,1 @@
+delete all cached keys? this will revoke your access to repos on your system until someone else with a key gives it to you.

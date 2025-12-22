@@ -1,9 +1,9 @@
 import sys
 import os
 
-from vom.resources.scripts.errors import CryptographyNotInstalledError
-from vom.resources.scripts.file import File
-from vom.resources.scripts.string import String
+from .errors import CryptographyNotInstalledError
+from .file import File
+from .string import String
 
 
 HERE: File = File(__file__)
@@ -20,12 +20,12 @@ class EncryptionService:
         self.fernet: Fernet = Fernet(self.key)
     @classmethod
     def fromRepository(cls, repo: "Repo") -> "EncryptionService": # type: ignore <- 'Repo' is not defined to avoid circular imports.
-        return cls((repo.file / "UUID.").readBytes())
+        return cls((repo.file / String.repo.uuidFile()).readBytes())
     @staticmethod
     def newKey() -> bytes:
         key: bytes = Fernet.generate_key()
         return key
     def encrypt(self, string: str) -> str:
-        return self.fernet.encrypt(string)
+        return self.fernet.encrypt(string.encode("utf-8"))
     def decrypt(self, string: str) -> str:
         return self.fernet.decrypt(string)
