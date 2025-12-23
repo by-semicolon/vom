@@ -6,17 +6,17 @@ from .user import User
 
 
 class JSONDataset:
-    def __init__(self, file: JSONFile, data: Any = None) -> None:
+    def __init__(self, file: JSONFile | None = None, data: Any = None) -> None:
         self.file: JSONFile = file
         self.data: Any = data or {}
     def write(self) -> None:
         self.file.write(self.data)
-    def read(self) -> str:
+    def read(self) -> None:
         self.data = self.file.read()
 
 class EncryptedJSONDataset(JSONDataset):
-    def __init__(self, file: JSONFile) -> None:
-        super().__init__(file, file.read())
+    def __init__(self, file: EncryptedJSONFile) -> None:
+        super().__init__(None, file.read())
         self.file: EncryptedJSONFile = file
 
 class ContributorsEJDS(EncryptedJSONDataset):

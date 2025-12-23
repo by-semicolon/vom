@@ -13,5 +13,6 @@ with vom as of now.
 - 0.4.3 - 17.12.2025 - user-friendly changes, bug fixes
 - 0.4.4 - 19.12.2025 - first pip release ('vom-standard'). still alpha and not functional.
 - 0.4.5 - 20.12.2025 - progress and bug fixes
-- 0.4.6 - 21.12.2025 - advanced encryption, commit id's use sha256
+- 0.4.6 - 21.12.2025 - advanced encryption, commit ids use sha256
 - 0.5 - 22.12.2025 - 'vom commit' command functional, planning to add 'vom revert' soon
+- 0.5.1 - 23.12.2025 - many typo and bug fixes, experimental version of 'vom revert' (not done yet). ps: i haven't got access to my pc now and made this on my laptop so don't expect polish :P

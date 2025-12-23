@@ -19,13 +19,13 @@ class EncryptionService:
         self.key: bytes = key
         self.fernet: Fernet = Fernet(self.key)
     @classmethod
-    def fromRepository(cls, repo: "Repo") -> "EncryptionService": # type: ignore <- 'Repo' is not defined to avoid circular imports.
+    def fromRepository(cls, repo: "Repo") -> "EncryptionService": # type: ignore # <- 'Repo' is not defined to avoid circular imports.
         return cls((repo.file / String.repo.uuidFile()).readBytes())
     @staticmethod
     def newKey() -> bytes:
         key: bytes = Fernet.generate_key()
         return key
-    def encrypt(self, string: str) -> str:
+    def encrypt(self, string: str) -> bytes:
         return self.fernet.encrypt(string.encode("utf-8"))
-    def decrypt(self, string: str) -> str:
+    def decrypt(self, string: str) -> bytes:
         return self.fernet.decrypt(string)

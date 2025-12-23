@@ -63,7 +63,7 @@ def impl(args: list[str]) -> None:
             else:
                 raise ImplementationDoesntExistError(String.impl.errorImplementationDoesntExist(implementation=args[0]))
             commit: Commit | None = implementation.getCommits()[-1]
-            if promptConfirmation(String.impl.switchImplementationConfirmation(current_implementation=(user.opened if user else "<unkown>"), implementation=implementation)):
+            if promptConfirmation(String.impl.switchImplementationConfirmation(current_implementation=(user.opened if user else "<unknown>"), implementation=implementation)):
                 if user is not None:
                     user.opened = implementation
                     contributors: ContributorsEJDS = repo.getContributorsEJDS()
@@ -74,6 +74,6 @@ def impl(args: list[str]) -> None:
                 for file in File().getChildren():
                     if file.getFileName() != ".vom" and not VomIgnore().isIgnored(file):
                         file.remove()
-                commit.moveDecryptedFilesTo(".", replace=False, log=True)
+                commit.moveDecryptedFilesTo(repo.getEncryptionService(), File(), replace=False)
         case _:
             raise UnknownCommandError(String.misc.errorUnknownCommand(command=command))

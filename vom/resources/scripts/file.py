@@ -28,10 +28,10 @@ class File:
     def getFileSize(self) -> int:
         return os.path.getsize(self.path)
     def getFileCreationTime(self) -> datetime:
-        return os.path.getctime(self.path)
+        return datetime.fromtimestamp(os.path.getctime(self.path))
     def getFileModificationTime(self) -> datetime:
-        return os.path.getmtime(self.path)
-    def getParent(self) -> str:
+        return datetime.fromtimestamp(os.path.getmtime(self.path))
+    def getParent(self) -> "File":
         return File(os.path.dirname(self.path))
     def getChildren(self) -> "list[File]":
         return [(self / item) for item in os.listdir(self.getFullPath())]
@@ -40,14 +40,14 @@ class File:
             return self.getParent()
         return File(os.path.join(self.path, str(other.path if isinstance(other, File) else other)))
     def getTree(self, exclude: list[str], *, tree_location: str = "") -> "list[tuple[str, File]]":
-        files: list[tuple[File]] = []
+        files: list[tuple[str, File]] = []
         for file in self.getChildren():
             if file.getFileName() in exclude:
                 continue
             elif file.isFile():
                 files.append((tree_location.strip("/"), file))
             else:
-                files += file.getTree(tree_location=f"{tree_location}/{self.getFileName()}")
+                files += file.getTree(tree_location=f"{tree_location}/{self.getFileName()}", exclude=[])
         return files
     def exists(self) -> bool:
         return os.path.exists(self.path)
@@ -60,7 +60,7 @@ class File:
         elif self.isFile():
             shutil.copy2(self.path, destination.path)
         return self
-    def delete(self) -> None:
+    def delete(self) -> "File":
         if self.isDirectory():
             shutil.rmtree(self.path)
         elif self.isFile():

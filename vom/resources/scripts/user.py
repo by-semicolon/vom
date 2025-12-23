@@ -1,9 +1,9 @@
 class User:
-    def __init__(self, username: str, email: str, uuid: str, opened: "Implementation", owner: bool, log: list[str] | None = None) -> None: # type: ignore <- 'Implementation' undefined to avoid circular import.
+    def __init__(self, username: str, email: str, uuid: str, opened: "Implementation", owner: bool, log: list[str] | None = None) -> None: # type: ignore # <- 'Implementation' undefined to avoid circular import.
         self.username: str = username
         self.email: str = email
         self.id: str = uuid
-        self.opened: "Implementation" = opened # type: ignore <- 'Implementation' undefined to avoid circular import.
+        self.opened: "Implementation" = opened # type: ignore # <- 'Implementation' undefined to avoid circular import.
         self.owner: bool = owner
         self.log: list[str] = log or []
     @classmethod

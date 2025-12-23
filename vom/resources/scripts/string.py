@@ -1,3 +1,5 @@
+from typing import Callable
+
 from .file import File
 from .errors import ResourceNotFoundError
 
@@ -8,9 +10,9 @@ LANG_DIR: File = HERE / ".." / ".." / "lang" / LANG_OPTION
 
 @lambda _: _()
 class String:
-    def __getattr__(self, category: str) -> str:
+    def __getattr__(self, category: str) -> "StringCategory":
         class StringCategory:
-            def __getattr__(self, key: str) -> str:
+            def __getattr__(self, key: str) -> Callable:
                 if not (LANG_DIR / category / (key + ".txt")).exists():
                     if not (LANG_DIR / "misc" / "errorResourceNotFound.txt").exists():
                         raise ResourceNotFoundError(f"{category}.{key}")

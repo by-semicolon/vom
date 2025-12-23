@@ -29,14 +29,15 @@ vom  init  [location]  [--force]  ----------------------------------------------
                                                                                  global permission to recreate a repository that's not yours)
      log  [implementation]  ---------------------------------------------------- see the number and history of commits on the current
                                                                                  implementation or the implementation you specify.
-     impl  create  [--user]  <name>  <parent>  [--force]  ---------------------- create a copy of the provided parent implementation in the
-                                                                                 current repository (rules and contributors are not copied 
-                                                                                 though), pass --force to recreaft it if it already exists
-                                                                                 (you need the DELETE_RECREATE local permission on the 
-                                                                                 implementation to recreate it), --user skips the <name>
-                                                                                 argument and sets the branch name to your local git username.
-     impl  switch  <name>  [--force]  ------------------------------------------ go to a specific implementation. command cannot be used if
-                                                                                 you have uncommited changes.
+     impl  create  [--user]  <name>  [--force]  -------------------------------- create a new implementation in the current repository (rules
+                                                                                 and contributors are not copied though). pass --force to
+                                                                                 recreate it if it already exists (you need the
+                                                                                 DELETE_RECREATE local permission on the implementation to
+                                                                                 recreate it). passing --user skips the <name> argument and
+                                                                                 sets the branch name to your username.
+     impl  switch  [--user]  <name>  [--force]  -------------------------------- go to a specific implementation. command cannot be used if
+                                                                                 you have uncommited changes. passing --user skips the <name>
+                                                                                 argument and sets the branch name to your username.
      impl  list  --------------------------------------------------------------- get a list of all implementations on this branch along with
                                                                                  some basic info about each one.
      log  [implementation]  ---------------------------------------------------- get a list of all commits on this implementation or any
@@ -84,7 +85,7 @@ vom  impl  perm  add  <username>  <permission>  [implementation]  --------------
      impl  shout  <message>  [users] [implementation]  ------------------------- send a message that will appear to all implementation contributors
                                                                                  the next time they use a command in the repo or use the 
                                                                                  'vom notifications' command. only sends to the specified user(s)
-                                                                                 (separated by commas) if anyare provided.
+                                                                                 (separated by commas) if any are provided.
 commands for repository owners:
 vom  perm  add  <username>  <permission>  -------------------------------------- add a permission to a certain user if you are an owner of the
                                                                                  repository.
@@ -110,7 +111,7 @@ vom  perm  add  <username>  <permission>  --------------------------------------
                                                                                  implementations and managing implementations. the repository
                                                                                  directory will persist and all commands have a warning that
                                                                                  this repository is archived and no changes can be made.
-                                                                                 unarchive any time with 'vom repo-unarchive'
+                                                                                 un-archive any time with 'vom repo-unarchive'
      repo-unarchive  ----------------------------------------------------------- revert all changes of 'vom repo-archive'
      shout  <message>  [users]  ------------------------------------------------ send a message that will appear to all users the next time they
                                                                                  use a command in the repo or use the 'vom notifications' command.

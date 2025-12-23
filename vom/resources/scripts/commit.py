@@ -42,7 +42,7 @@ class Commit:
             if replace or not new_file.exists():
                 new_file.writeBytes(es.decrypt(file.read()))
     @classmethod
-    def new(cls, es: EncryptionService, implementation: "Implementation", message: str, author: User, log: bool = False) -> "Commit": # type: ignore <- 'Repo' and 'Implementation' undefined to avoid circular import.
+    def new(cls, es: EncryptionService, implementation: "Implementation", message: str, author: User, log: bool = False) -> "Commit": # type: ignore # <- 'Repo' and 'Implementation' undefined to avoid circular import.
         file: File = (implementation.file / "commits" / (len((implementation.file / "commits").getChildren()) + 1)).mkdir()
         time: datetime = datetime.now()
         commit: Commit = cls(

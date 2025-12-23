@@ -21,6 +21,7 @@ class Repo:
     def __init__(self, parent: File):
         self.parent: File = parent
         self.file: File = self.parent / ".vom"
+        self.uuid: str | None = None
         if not self.file.exists():
             raise NotARepoError(String.repo.errorNotARepo(file=self.parent))
     def validateKey(self) -> None:
@@ -31,7 +32,7 @@ class Repo:
     def getUUID(self) -> str:
         return (self.file / "repo" / "uuid.txt").read()
     def getEncryptionService(self) -> EncryptionService:
-        return EncryptionService((KEYS_DIRECTORY / (self.getUUID() + ".vom")).read())
+        return EncryptionService((KEYS_DIRECTORY / (self.getUUID() + ".vom")).readBytes())
     def getContributorsEJDS(self) -> ContributorsEJDS:
         return ContributorsEJDS(EncryptedJSONFile(self.getEncryptionService(), self.file / "repo" / "contributors.ejson"))
     def getUserIfContributor(self, user_id: str | None = None) -> User | None:
